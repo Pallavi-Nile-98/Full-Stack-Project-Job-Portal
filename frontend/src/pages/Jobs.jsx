@@ -182,26 +182,26 @@ const nichesArray = [
               <div className="mobile-filter">
 
                 {/* //for mobile devices for cities */}
-                
+
                 <select value={city} onChange={(e)=> setCity(e.target.value)}>
                   <option value="">Filter By City</option>
                   {
-                    cities.map((city,index)=>{
+                    cities.map((city,index)=>(
                       <option value={city} key={index}>
                         {city}</option>
 
-                    })}
+                    ))}
 
                   {/* /for mobile devices for Nob Niches  */}
                 </select>
                 <select value={niche} onChange={(e)=> setNiche(e.target.value)}>
                   <option value="">Filter By Niche</option>
                   {
-                    nichesArray.map((niche,index)=>{
+                    nichesArray.map((niche,index)=>(
                       <option value={niche} key={index}>
                         {niche}</option>
 
-                    })}
+                    ))}
                   
                 </select>
 
