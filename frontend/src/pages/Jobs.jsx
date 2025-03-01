@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { clearAllJobErrors, fetchJobs } from "../store/slices/jobSlice";
 import Spinner from "../components/Spinner";
 import { FaSearch } from "react-icons/fa"; 
-
+import {Link} from "react-router-dom";
 const Jobs = () => {
   const [city, setCity] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
@@ -12,7 +12,7 @@ const Jobs = () => {
   const [selectedNiche, setSelectedNiche] = useState("");
   const [searchKeyword, setSearchKeyword] = useState("");
 
-  const { loading, error } = useSelector((state) => state.jobs);
+  const { jobs ,loading, error } = useSelector((state) => state.jobs);
 
   const dispatch = useDispatch();
 
@@ -205,6 +205,33 @@ const nichesArray = [
                   
                 </select>
 
+              </div>
+              <div className="jobs_container">
+                {
+                  jobs && jobs.map(element=>{
+                    return(
+                      <div className="card" key={element._id}>
+                        {
+                          element.hiringMultipleCandidates === "Yes" ? (
+                            <p className="hiring-multiple">Hiring Multiple Candidates</p>
+                          ):(
+                            <p className="hiring">Hiring</p>
+                          )}
+                          <p className="title">{element.title}</p>
+                          <p className="company">{element.companyName}</p>
+                          <p className="location">{element.location}</p>
+                          <p className="salary">{element.salary}</p>
+                          <p className="posted"><span>Posted On:</span>
+                          {element.jobPostedOn}</p>
+                          <div className="btn-wrapper">
+                          <Link to={`/post/application/${element._id}`}>
+                          Apply Now
+                          </Link>
+                          </div>
+                      </div>
+                    );
+                  })
+                }
               </div>
             </div>
           </div>
