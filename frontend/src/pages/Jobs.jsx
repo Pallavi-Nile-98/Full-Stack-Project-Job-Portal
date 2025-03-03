@@ -212,19 +212,21 @@ const nichesArray = [
                     return(
                       <div className="card" key={element._id}>
                         {
-                          element.hiringMultipleCandidates === "Yes" ? (
-                            <p className="hiring-multiple">Hiring Multiple Candidates</p>
-                          ):(
-                            <p className="hiring">Hiring</p>
-                          )}
+                          element.hiringMultipleCandidates && element.hiringMultipleCandidates.toLowerCase() === "yes" ? (
+                          <p className="hiring-multiple">Hiring Multiple Candidates</p>
+                        ) : (
+                          <p className="hiring">Hiring</p>
+                        )
+                        }
+
                           <p className="title">{element.title}</p>
                           <p className="company">{element.companyName}</p>
                           <p className="location">{element.location}</p>
-                          <p className="salary">{element.salary}</p>
+                          <p className="salary"><span>Salary:</span>${element.salary}</p>
                           <p className="posted"><span>Posted On:</span>
-                          {element.jobPostedOn}</p>
+                          {element.jobPostedOn.substring(0,10)}</p>
                           <div className="btn-wrapper">
-                          <Link to={`/post/application/${element._id}`}>
+                          <Link className="btn" to={`/post/application/${element._id}`}>
                           Apply Now
                           </Link>
                           </div>
