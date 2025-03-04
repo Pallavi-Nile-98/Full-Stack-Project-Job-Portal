@@ -11,8 +11,18 @@ import PostApplication from './pages/PostApplication';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import { ToastContainer } from 'react-toastify';
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getUser } from "./store/slices/userSlice";
   
 const App = () => {
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(getUser());
+    },[]);
+
+
+
     return (
         <>
             <Navbar />
