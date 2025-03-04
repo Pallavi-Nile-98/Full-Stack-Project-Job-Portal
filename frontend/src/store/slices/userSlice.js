@@ -32,6 +32,28 @@ const userSlice = createSlice({
             state.error = action.payload.error; // Ensure error is an object with key 'error'
             state.message = null;
         },
+
+        loginRequest(state) {
+            state.loading = true;
+            state.isAuthenticated = false;
+            state.user = {};
+            state.error = null;
+            state.message = null;
+        },
+        loginSuccess(state, action) {
+            state.loading = false;
+            state.isAuthenticated = true;
+            state.user = action.payload.user;
+            state.error = null;
+            state.message = action.payload.message;
+        },
+        loginFailed(state, action) {
+            state.loading = false;
+            state.isAuthenticated = false;
+            state.user = {};
+            state.error = action.payload.error; // Ensure error is an object with key 'error'
+            state.message = null;
+        },
         clearAllErrors(state) {
             state.error = null;
         },
@@ -56,6 +78,24 @@ export const register = (data) => async (dispatch) => {
         );
     }
 };
+
+export const login = (data)=>async(dispatch)=>{
+    dispatch(userSlice.actions.loginRequest());
+    try{
+        const response = await axios.post("http://localhost:4000/api/v1/user/login",data,{
+            withCredentials:true,
+            headers:{"content-Type": "application/json"}
+        })
+        dispatch(userSlice.actions.loginSuccess(response.data));
+        dispatch(userSlice.actions.clearAllErrors());
+
+    }catch(error){
+        dispatch(userSlice.actions.loginFailed(error.response.data.message));
+
+    }
+};
+
+
 
 export const clearAllUserErrors = () => (dispatch) => {
     dispatch(userSlice.actions.clearAllErrors());

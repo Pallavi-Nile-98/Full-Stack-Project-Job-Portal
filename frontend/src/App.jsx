@@ -9,7 +9,9 @@ import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 import PostApplication from './pages/PostApplication';
 import Register from './pages/Register';
-import NotFound from './pages/NotFound'
+import NotFound from './pages/NotFound';
+import { ToastContainer } from 'react-toastify';
+  
 const App = () => {
     return (
         <>
@@ -24,6 +26,7 @@ const App = () => {
                 <Route path='*' element={<NotFound />} />
             </Routes>
             <Footer />
+            <ToastContainer position='top-center' theme='dark'/>
         </>
     );
 }
